@@ -32,57 +32,85 @@
   .tab-btn.active { color: #e8b84b; border-bottom-color: #e8b84b; }
   .tab-btn:hover:not(.active) { color: #888; }
 
-  .main { padding: 1.5rem; max-width: 900px; margin: 0 auto; }
+  .main { padding: 1.5rem; max-width: 960px; margin: 0 auto; }
   .tab-panel { display: none; }
   .tab-panel.active { display: block; }
 
+  /* Stats */
   .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 1.5rem; }
   .stat-card { background: #161616; border: 1px solid #1e1e1e; border-radius: 10px; padding: 1rem; text-align: center; }
   .stat-num { font-size: 2rem; font-weight: 700; color: #e8b84b; }
   .stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #555; margin-top: 2px; }
 
-  .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
-  .section-title { font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; color: #555; }
-
-  .add-btn { display: flex; align-items: center; gap: 6px; background: #e8b84b; color: #0e0e0e; border: none; border-radius: 7px; padding: 8px 14px; font-size: 13px; font-weight: 600; cursor: pointer; transition: opacity 0.15s; }
+  /* Toolbar */
+  .toolbar { display: flex; gap: 10px; margin-bottom: 1rem; align-items: center; }
+  .search-wrap { flex: 1; position: relative; }
+  .search-wrap svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 15px; height: 15px; color: #555; pointer-events: none; }
+  .search-input { width: 100%; background: #161616; border: 1px solid #2a2a2a; border-radius: 8px; padding: 9px 12px 9px 36px; font-size: 14px; color: #f0ede8; outline: none; font-family: inherit; }
+  .search-input::placeholder { color: #444; }
+  .search-input:focus { border-color: #e8b84b55; }
+  .add-btn { display: flex; align-items: center; gap: 6px; background: #e8b84b; color: #0e0e0e; border: none; border-radius: 7px; padding: 9px 16px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: opacity 0.15s; }
   .add-btn:hover { opacity: 0.85; }
 
+  /* Filter row */
   .filter-row { display: flex; gap: 8px; margin-bottom: 1rem; flex-wrap: wrap; }
   .filter-btn { font-size: 12px; padding: 5px 12px; border-radius: 6px; border: 1px solid #2a2a2a; background: none; color: #888; cursor: pointer; transition: all 0.15s; }
   .filter-btn.active { background: #1e1e1e; color: #f0ede8; border-color: #444; }
 
-  .gear-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
-  .gear-card { background: #161616; border: 1px solid #1e1e1e; border-radius: 12px; padding: 1rem; transition: border-color 0.15s; }
-  .gear-card:hover { border-color: #2a2a2a; }
-  .gear-card.checked-out { border-left: 3px solid #e8b84b; }
-  .gear-card.available { border-left: 3px solid #3a7d5a; }
+  /* List view */
+  .gear-list { display: flex; flex-direction: column; border: 1px solid #1e1e1e; border-radius: 12px; overflow: hidden; }
 
-  .gear-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; gap: 8px; }
-  .gear-name { font-size: 15px; font-weight: 600; color: #f0ede8; line-height: 1.3; }
-  .gear-cat { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; padding: 3px 8px; border-radius: 4px; background: #1e1e1e; color: #666; white-space: nowrap; }
+  .gear-list-header {
+    display: grid;
+    grid-template-columns: 28px 1fr 110px 90px 140px 110px 80px;
+    gap: 12px;
+    padding: 8px 14px;
+    background: #111;
+    border-bottom: 1px solid #1e1e1e;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #444;
+    align-items: center;
+  }
 
-  .status-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 6px; }
-  .status-badge.available { background: #0d2b1e; color: #5acc8e; }
-  .status-badge.checked-out { background: #2b2010; color: #e8b84b; }
-  .status-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+  .gear-row {
+    display: grid;
+    grid-template-columns: 28px 1fr 110px 90px 140px 110px 80px;
+    gap: 12px;
+    padding: 11px 14px;
+    border-bottom: 1px solid #161616;
+    align-items: center;
+    transition: background 0.1s;
+  }
+  .gear-row:last-child { border-bottom: none; }
+  .gear-row:hover { background: #141414; }
 
-  .with-who { font-size: 12px; color: #666; margin-top: 5px; }
-  .with-who strong { color: #aaa; }
-  .timestamp { font-size: 11px; color: #3a3a3a; margin-top: 3px; }
+  .gear-row-status { display: flex; align-items: center; justify-content: center; }
+  .status-dot-lg { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .status-dot-lg.available { background: #3a7d5a; }
+  .status-dot-lg.out { background: #e8b84b; }
 
-  .gear-actions { display: flex; gap: 6px; margin-top: 12px; }
-  .action-btn { flex: 1; font-size: 12px; font-weight: 600; padding: 7px; border-radius: 6px; border: 1px solid #2a2a2a; background: none; color: #888; cursor: pointer; transition: all 0.15s; }
-  .action-btn:hover { background: #1e1e1e; color: #f0ede8; }
-  .action-btn.take { border-color: #e8b84b44; color: #e8b84b; }
-  .action-btn.take:hover { background: #2b2010; }
-  .action-btn.return { border-color: #3a7d5a44; color: #5acc8e; }
-  .action-btn.return:hover { background: #0d2b1e; }
-  .action-btn.del { border-color: #3a1515; color: #a05555; }
-  .action-btn.del:hover { background: #1e0f0f; }
+  .gear-row-name { font-size: 14px; font-weight: 600; color: #f0ede8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .gear-row-cat { font-size: 11px; color: #555; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .gear-row-who { font-size: 12px; color: #aaa; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .gear-row-who.empty { color: #333; }
+  .gear-row-time { font-size: 11px; color: #444; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .gear-row-added { font-size: 11px; color: #333; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-  .empty-state { text-align: center; padding: 3rem; color: #444; grid-column: 1/-1; }
+  .gear-row-actions { display: flex; gap: 5px; justify-content: flex-end; }
+  .row-btn { font-size: 11px; font-weight: 600; padding: 4px 9px; border-radius: 5px; border: 1px solid #2a2a2a; background: none; cursor: pointer; transition: all 0.12s; white-space: nowrap; }
+  .row-btn.take { color: #e8b84b; border-color: #e8b84b33; }
+  .row-btn.take:hover { background: #2b2010; }
+  .row-btn.return { color: #5acc8e; border-color: #3a7d5a33; }
+  .row-btn.return:hover { background: #0d2b1e; }
+  .row-btn.del { color: #a05555; border-color: #3a151533; }
+  .row-btn.del:hover { background: #1e0f0f; }
+
+  .empty-state { text-align: center; padding: 3rem; color: #444; }
   .empty-state p { font-size: 14px; margin-top: 8px; }
 
+  /* Crew tab */
   .crew-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; margin-bottom: 1.5rem; }
   .crew-card { background: #161616; border: 1px solid #1e1e1e; border-radius: 12px; padding: 1.25rem 1rem; text-align: center; cursor: pointer; transition: all 0.15s; }
   .crew-card:hover { border-color: #2a2a2a; }
@@ -106,12 +134,13 @@
   .crew-gear-item-time { font-size: 11px; color: #444; text-align: right; white-space: nowrap; }
   .no-gear { text-align: center; padding: 2rem; color: #444; font-size: 14px; }
 
+  /* Modal */
   .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); display: flex; align-items: center; justify-content: center; z-index: 100; padding: 1rem; }
   .modal { background: #161616; border: 1px solid #2a2a2a; border-radius: 14px; padding: 1.5rem; width: 100%; max-width: 400px; }
   .modal h3 { font-size: 16px; font-weight: 600; margin-bottom: 1.25rem; color: #f0ede8; }
   .form-group { margin-bottom: 1rem; }
   .form-group label { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #666; margin-bottom: 6px; }
-  .form-group input, .form-group select { width: 100%; background: #0e0e0e; border: 1px solid #2a2a2a; border-radius: 7px; padding: 10px 12px; font-size: 14px; color: #f0ede8; outline: none; }
+  .form-group input, .form-group select { width: 100%; background: #0e0e0e; border: 1px solid #2a2a2a; border-radius: 7px; padding: 10px 12px; font-size: 14px; color: #f0ede8; outline: none; font-family: inherit; }
   .form-group input:focus, .form-group select:focus { border-color: #e8b84b55; }
   .form-group select option { background: #161616; }
   .modal-actions { display: flex; gap: 8px; margin-top: 1.25rem; }
@@ -120,6 +149,8 @@
   .modal-confirm { flex: 2; background: #e8b84b; border: none; color: #0e0e0e; border-radius: 7px; padding: 10px; cursor: pointer; font-size: 14px; font-weight: 700; }
   .modal-confirm:hover { opacity: 0.88; }
   .loading { display: flex; align-items: center; justify-content: center; min-height: 200px; color: #555; font-size: 14px; }
+
+  .result-count { font-size: 12px; color: #444; margin-bottom: 8px; }
 </style>
 </head>
 <body>
@@ -156,22 +187,37 @@
   </div>
 
   <div class="main">
+
+    <!-- GEAR TAB -->
     <div id="tab-gear" class="tab-panel active">
       <div class="stats-row">
-        <div class="stat-card"><div class="stat-num" id="stat-total">0</div><div class="stat-label">Total Items</div></div>
-        <div class="stat-card"><div class="stat-num" id="stat-available" style="color:#5acc8e">0</div><div class="stat-label">Available</div></div>
-        <div class="stat-card"><div class="stat-num" id="stat-out" style="color:#e8b84b">0</div><div class="stat-label">Checked Out</div></div>
+        <div class="stat-card" style="background:#1a1f2e;border-color:#2a3a5c"><div class="stat-num" style="color:#7aacf0" id="stat-total">0</div><div class="stat-label" style="color:#4a6a9a">Total Items</div></div>
+        <div class="stat-card" style="background:#0d2b1e;border-color:#1a4a32"><div class="stat-num" style="color:#5acc8e" id="stat-available">0</div><div class="stat-label" style="color:#2a6a4a">Available</div></div>
+        <div class="stat-card" style="background:#2b1f0a;border-color:#4a3510"><div class="stat-num" style="color:#e8b84b" id="stat-out">0</div><div class="stat-label" style="color:#7a5a20">Checked Out</div></div>
       </div>
-      <div class="section-header">
-        <div class="section-title">Equipment</div>
+
+      <div class="toolbar">
+        <div class="search-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input class="search-input" id="search-input" type="text" placeholder="Search equipment...">
+        </div>
         <button class="add-btn" id="open-add-btn">+ Add Gear</button>
       </div>
+
       <div class="filter-row" id="filter-row"></div>
-      <div id="gear-grid" class="gear-grid"><div class="loading">Loading gear...</div></div>
+
+      <div class="result-count" id="result-count"></div>
+
+      <div id="gear-container">
+        <div class="loading">Loading gear...</div>
+      </div>
     </div>
 
+    <!-- CREW TAB -->
     <div id="tab-crew" class="tab-panel">
-      <div class="section-header"><div class="section-title">Crew Members</div></div>
+      <div class="section-header" style="margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between">
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.15em;color:#555">Crew Members</div>
+      </div>
       <div class="crew-grid" id="crew-grid"></div>
       <div class="crew-detail" id="crew-detail">
         <div class="crew-detail-header">
@@ -184,6 +230,7 @@
         <div class="crew-gear-list" id="crew-gear-list"></div>
       </div>
     </div>
+
   </div>
 </div>
 
@@ -202,6 +249,10 @@
         <option>Lenses</option>
         <option>Lighting</option>
         <option>Stands &amp; Supports</option>
+        <option>Flash</option>
+        <option>Batteries</option>
+        <option>Cards</option>
+        <option>Bags</option>
         <option>Other</option>
       </select>
     </div>
@@ -235,13 +286,12 @@
   </div>
 </div>
 
-<!-- Firebase SDKs -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 
 <script>
-const firebaseConfig = {
+firebase.initializeApp({
   apiKey: "AIzaSyAPnYK0aXhdRY_d8farvKqw_i2lOO_5lK8",
   authDomain: "gear-manifest-v2.firebaseapp.com",
   databaseURL: "https://gear-manifest-v2-default-rtdb.asia-southeast1.firebasedatabase.app",
@@ -249,9 +299,8 @@ const firebaseConfig = {
   storageBucket: "gear-manifest-v2.firebasestorage.app",
   messagingSenderId: "366870494705",
   appId: "1:366870494705:web:6167d14e290c019869d850"
-};
+});
 
-firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.database();
 
@@ -271,10 +320,15 @@ const FILTERS = [
   { label: 'Lenses', val: 'Lenses' },
   { label: 'Lighting', val: 'Lighting' },
   { label: 'Stands', val: 'Stands & Supports' },
+  { label: 'Flash', val: 'Flash' },
+  { label: 'Batteries', val: 'Batteries' },
+  { label: 'Cards', val: 'Cards' },
+  { label: 'Bags', val: 'Bags' },
   { label: 'Other', val: 'Other' },
 ];
 
 let currentFilter = 'all';
+let searchQuery = '';
 let allGear = {};
 let pendingTakeId = null;
 let selectedCrew = null;
@@ -292,6 +346,12 @@ FILTERS.forEach(f => {
     renderGear();
   });
   filterRow.appendChild(btn);
+});
+
+// Search
+document.getElementById('search-input').addEventListener('input', function() {
+  searchQuery = this.value.toLowerCase().trim();
+  renderGear();
 });
 
 // Auth
@@ -316,7 +376,6 @@ auth.onAuthStateChanged(user => {
 // Tabs
 document.getElementById('tab-btn-gear').addEventListener('click', function() { switchTab('gear', this); });
 document.getElementById('tab-btn-crew').addEventListener('click', function() { switchTab('crew', this); });
-
 function switchTab(tab, btn) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -331,6 +390,7 @@ document.getElementById('open-add-btn').addEventListener('click', () => {
 });
 document.getElementById('add-cancel-btn').addEventListener('click', closeModals);
 document.getElementById('take-cancel-btn').addEventListener('click', closeModals);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModals(); });
 
 document.getElementById('add-confirm-btn').addEventListener('click', () => {
   const name = document.getElementById('gear-name-input').value.trim();
@@ -354,8 +414,6 @@ function closeModals() {
   document.getElementById('take-modal').style.display = 'none';
 }
 
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModals(); });
-
 // Data
 function listenGear() {
   db.ref('gear').on('value', snap => {
@@ -366,8 +424,13 @@ function listenGear() {
 }
 
 function formatTime(ts) {
-  if (!ts) return '';
+  if (!ts) return '—';
   return new Date(ts).toLocaleString('en-SG', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true });
+}
+
+function formatShort(ts) {
+  if (!ts) return '—';
+  return new Date(ts).toLocaleString('en-SG', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit', hour12: true });
 }
 
 function esc(s) {
@@ -375,9 +438,10 @@ function esc(s) {
 }
 
 function renderGear() {
-  const grid = document.getElementById('gear-grid');
+  const container = document.getElementById('gear-container');
   const items = Object.entries(allGear);
 
+  // Filter by tab filter
   let filtered = items;
   if (currentFilter === 'available') filtered = items.filter(([,v]) => !v.checkedOutBy);
   else if (currentFilter === 'checked-out') filtered = items.filter(([,v]) => v.checkedOutBy);
@@ -385,60 +449,88 @@ function renderGear() {
     filtered = items.filter(([,v]) => v.category === currentFilter);
   }
 
+  // Filter by search
+  if (searchQuery) {
+    filtered = filtered.filter(([,v]) =>
+      v.name.toLowerCase().includes(searchQuery) ||
+      v.category.toLowerCase().includes(searchQuery) ||
+      (v.checkedOutBy && v.checkedOutBy.toLowerCase().includes(searchQuery))
+    );
+  }
+
+  // Stats (always from full list)
   const total = items.length;
   const available = items.filter(([,v]) => !v.checkedOutBy).length;
   document.getElementById('stat-total').textContent = total;
   document.getElementById('stat-available').textContent = available;
   document.getElementById('stat-out').textContent = total - available;
 
+  // Result count
+  const rc = document.getElementById('result-count');
+  rc.textContent = searchQuery || currentFilter !== 'all' ? filtered.length + ' item' + (filtered.length !== 1 ? 's' : '') + ' shown' : '';
+
   if (filtered.length === 0) {
-    grid.innerHTML = '<div class="empty-state"><div style="font-size:2rem">📷</div><p>' + (total === 0 ? 'No gear yet. Add your first item!' : 'Nothing matches this filter.') + '</p></div>';
+    container.innerHTML = '<div class="empty-state"><div style="font-size:2rem">📷</div><p>' + (total === 0 ? 'No gear yet. Add your first item!' : 'Nothing matches.') + '</p></div>';
     return;
   }
 
-  grid.innerHTML = filtered.map(([id, item]) => {
-    const out = !!item.checkedOutBy;
-    return `<div class="gear-card ${out ? 'checked-out' : 'available'}">
-      <div class="gear-card-top">
-        <div class="gear-name">${esc(item.name)}</div>
-        <div class="gear-cat">${esc(item.category)}</div>
-      </div>
-      <div style="margin-top:8px">
-        ${out
-          ? `<span class="status-badge checked-out"><span class="status-dot"></span>Out</span>
-             <div class="with-who">with <strong>${esc(item.checkedOutBy)}</strong></div>
-             <div class="timestamp">Taken: ${formatTime(item.checkedOutAt)}</div>`
-          : `<span class="status-badge available"><span class="status-dot"></span>Available</span>
-             ${item.returnedAt ? '<div class="timestamp">Returned: ' + formatTime(item.returnedAt) + '</div>' : ''}`
-        }
-        ${item.addedAt ? '<div class="timestamp">Added: ' + formatTime(item.addedAt) + '</div>' : ''}
-      </div>
-      <div class="gear-actions">
-        ${out
-          ? `<button class="action-btn return" data-id="${id}">Return</button>`
-          : `<button class="action-btn take" data-id="${id}" data-name="${esc(item.name)}">Take</button>`
-        }
-        <button class="action-btn del" data-id="${id}">Remove</button>
-      </div>
-    </div>`;
-  }).join('');
+  // Sort: checked out first, then alphabetically
+  filtered.sort(([,a],[,b]) => {
+    if (!!a.checkedOutBy !== !!b.checkedOutBy) return a.checkedOutBy ? -1 : 1;
+    return a.name.localeCompare(b.name);
+  });
 
-  // Attach events after render
-  grid.querySelectorAll('.action-btn.take').forEach(btn => {
-    btn.addEventListener('click', () => {
+  container.innerHTML = `
+    <div class="gear-list">
+      <div class="gear-list-header">
+        <div></div>
+        <div>Name</div>
+        <div>Category</div>
+        <div>Status</div>
+        <div>With / Returned</div>
+        <div>Added</div>
+        <div></div>
+      </div>
+      ${filtered.map(([id, item]) => {
+        const out = !!item.checkedOutBy;
+        return `<div class="gear-row" data-id="${id}">
+          <div class="gear-row-status">
+            <div class="status-dot-lg ${out ? 'out' : 'available'}"></div>
+          </div>
+          <div class="gear-row-name" title="${esc(item.name)}">${esc(item.name)}</div>
+          <div class="gear-row-cat">${esc(item.category)}</div>
+          <div class="gear-row-cat" style="color:${out ? '#e8b84b' : '#3a7d5a'}">${out ? 'Out' : 'Available'}</div>
+          <div class="gear-row-time">${out ? esc(item.checkedOutBy) + ' · ' + formatShort(item.checkedOutAt) : (item.returnedAt ? 'Ret ' + formatShort(item.returnedAt) : '—')}</div>
+          <div class="gear-row-added">${formatShort(item.addedAt)}</div>
+          <div class="gear-row-actions">
+            ${out
+              ? `<button class="row-btn return" data-id="${id}">Return</button>`
+              : `<button class="row-btn take" data-id="${id}" data-name="${esc(item.name)}">Take</button>`
+            }
+            <button class="row-btn del" data-id="${id}">✕</button>
+          </div>
+        </div>`;
+      }).join('')}
+    </div>`;
+
+  container.querySelectorAll('.row-btn.take').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
       pendingTakeId = btn.dataset.id;
       document.getElementById('take-item-name').textContent = btn.dataset.name;
       document.getElementById('take-name-input').value = '';
       document.getElementById('take-modal').style.display = 'flex';
     });
   });
-  grid.querySelectorAll('.action-btn.return').forEach(btn => {
-    btn.addEventListener('click', () => {
+  container.querySelectorAll('.row-btn.return').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
       db.ref('gear/' + btn.dataset.id).update({ checkedOutBy: null, checkedOutAt: null, returnedAt: Date.now() });
     });
   });
-  grid.querySelectorAll('.action-btn.del').forEach(btn => {
-    btn.addEventListener('click', () => {
+  container.querySelectorAll('.row-btn.del').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
       if (confirm('Remove this item from the manifest?')) db.ref('gear/' + btn.dataset.id).remove();
     });
   });
@@ -472,15 +564,12 @@ function renderCrew() {
 function showCrewDetail(name) {
   const c = CREW.find(x => x.name === name);
   const items = Object.entries(allGear).filter(([,v]) => v.checkedOutBy === name);
-
   const avEl = document.getElementById('crew-detail-avatar');
   avEl.style.background = c.color;
   avEl.style.color = c.text;
   avEl.textContent = c.initials;
-
   document.getElementById('crew-detail-name').textContent = name;
   document.getElementById('crew-detail-sub').textContent = items.length + ' item' + (items.length !== 1 ? 's' : '') + ' currently checked out';
-
   const list = document.getElementById('crew-gear-list');
   if (items.length === 0) {
     list.innerHTML = '<div class="no-gear">No gear currently with ' + name + '</div>';
@@ -494,7 +583,6 @@ function showCrewDetail(name) {
         <div class="crew-gear-item-time">${formatTime(item.checkedOutAt)}</div>
       </div>`).join('');
   }
-
   document.getElementById('crew-detail').classList.add('visible');
 }
 </script>

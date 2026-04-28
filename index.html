@@ -405,6 +405,14 @@ document.getElementById('search-input').addEventListener('input', function() {
   renderGear();
 });
 
+// Whitelisted crew emails
+const ALLOWED_EMAILS = [
+  'nitheesakash@gmail.com',
+  'microprose99@gmail.com',
+  'azhar180794@gmail.com',
+  'farzanahhusseinwork@gmail.com',
+];
+
 // Auth
 document.getElementById('sign-in-btn').addEventListener('click', () => {
   auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).catch(e => alert(e.message));
@@ -413,6 +421,13 @@ document.getElementById('sign-out-btn').addEventListener('click', () => auth.sig
 
 auth.onAuthStateChanged(user => {
   if (user) {
+    if (!ALLOWED_EMAILS.includes(user.email.toLowerCase())) {
+      auth.signOut();
+      document.getElementById('auth-screen').style.display = 'flex';
+      document.getElementById('app').style.display = 'none';
+      alert('Access denied. This app is for authorised crew only.');
+      return;
+    }
     document.getElementById('auth-screen').style.display = 'none';
     document.getElementById('app').style.display = 'block';
     document.getElementById('user-name').textContent = user.displayName ? user.displayName.split(' ')[0] : user.email;

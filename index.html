@@ -7,156 +7,186 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'DM Sans', sans-serif; background: #0e0e0e; color: #f0ede8; min-height: 100vh; }
+  body { font-family: 'DM Sans', sans-serif; background: #0e0e0e; color: #f0ede8; min-height: 100vh; -webkit-text-size-adjust: 100%; }
 
-  #auth-screen { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; }
-  .logo { font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; color: #888; }
-  .app-title { font-size: 2.8rem; font-weight: 700; letter-spacing: -0.04em; color: #f0ede8; }
+  /* AUTH */
+  #auth-screen { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; padding: 2rem; }
+  .logo { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #888; }
+  .app-title { font-size: clamp(2rem, 8vw, 2.8rem); font-weight: 700; letter-spacing: -0.04em; color: #f0ede8; text-align: center; }
   .app-title span { color: #e8b84b; }
-  .sign-in-btn { display: flex; align-items: center; gap: 12px; background: #f0ede8; color: #0e0e0e; border: none; border-radius: 8px; padding: 14px 28px; font-size: 15px; font-weight: 600; cursor: pointer; transition: opacity 0.2s; }
-  .sign-in-btn:hover { opacity: 0.88; }
-  .sign-in-btn svg { width: 20px; height: 20px; }
+  .sign-in-btn { display: flex; align-items: center; gap: 12px; background: #f0ede8; color: #0e0e0e; border: none; border-radius: 8px; padding: 14px 28px; font-size: 15px; font-weight: 600; cursor: pointer; transition: opacity 0.2s; touch-action: manipulation; }
+  .sign-in-btn:active { opacity: 0.75; }
+  .sign-in-btn svg { width: 20px; height: 20px; flex-shrink: 0; }
 
+  /* APP SHELL */
   #app { display: none; min-height: 100vh; }
 
-  header { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.5rem; border-bottom: 1px solid #1e1e1e; position: sticky; top: 0; z-index: 10; background: #0e0e0e; }
-  .header-title { font-size: 1rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: #e8b84b; }
-  .user-info { display: flex; align-items: center; gap: 10px; }
-  .user-avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 2px solid #2a2a2a; }
-  .user-name { font-size: 13px; color: #888; }
-  .sign-out-btn { font-size: 12px; color: #555; background: none; border: 1px solid #2a2a2a; border-radius: 6px; padding: 4px 10px; cursor: pointer; }
-  .sign-out-btn:hover { color: #f0ede8; border-color: #444; }
+  header { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; border-bottom: 1px solid #1e1e1e; position: sticky; top: 0; z-index: 10; background: #0e0e0e; gap: 8px; }
+  .header-title { font-size: 0.9rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: #e8b84b; flex-shrink: 0; }
+  .user-info { display: flex; align-items: center; gap: 8px; min-width: 0; }
+  .user-avatar { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; border: 2px solid #2a2a2a; flex-shrink: 0; }
+  .user-name { font-size: 12px; color: #888; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 80px; }
+  .sign-out-btn { font-size: 11px; color: #555; background: none; border: 1px solid #2a2a2a; border-radius: 6px; padding: 4px 8px; cursor: pointer; flex-shrink: 0; touch-action: manipulation; }
 
-  .tabs { display: flex; border-bottom: 1px solid #1e1e1e; padding: 0 1.5rem; background: #0e0e0e; position: sticky; top: 61px; z-index: 9; }
-  .tab-btn { font-size: 13px; font-weight: 600; padding: 12px 20px; border: none; background: none; color: #555; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all 0.15s; }
+  /* TABS */
+  .tabs { display: flex; border-bottom: 1px solid #1e1e1e; background: #0e0e0e; position: sticky; top: 53px; z-index: 9; }
+  .tab-btn { flex: 1; font-size: 13px; font-weight: 600; padding: 12px; border: none; background: none; color: #555; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all 0.15s; touch-action: manipulation; }
   .tab-btn.active { color: #e8b84b; border-bottom-color: #e8b84b; }
-  .tab-btn:hover:not(.active) { color: #888; }
 
-  .main { padding: 1.5rem; max-width: 960px; margin: 0 auto; }
+  /* MAIN */
+  .main { padding: 1rem; max-width: 960px; margin: 0 auto; }
   .tab-panel { display: none; }
   .tab-panel.active { display: block; }
 
-  /* Stats */
-  .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 1.5rem; }
-  .stat-card { background: #161616; border: 1px solid #1e1e1e; border-radius: 10px; padding: 1rem; text-align: center; }
-  .stat-num { font-size: 2rem; font-weight: 700; color: #e8b84b; }
-  .stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #555; margin-top: 2px; }
+  /* STATS */
+  .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 1rem; }
+  .stat-card { border-radius: 10px; padding: 0.75rem 0.5rem; text-align: center; cursor: pointer; touch-action: manipulation; transition: opacity 0.15s; }
+  .stat-card:active { opacity: 0.75; }
+  .stat-num { font-size: clamp(1.4rem, 6vw, 2rem); font-weight: 700; line-height: 1; }
+  .stat-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 3px; }
 
-  /* Toolbar */
-  .toolbar { display: flex; gap: 10px; margin-bottom: 1rem; align-items: center; }
+  /* TOOLBAR */
+  .toolbar { display: flex; gap: 8px; margin-bottom: 0.75rem; align-items: center; }
   .search-wrap { flex: 1; position: relative; }
-  .search-wrap svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 15px; height: 15px; color: #555; pointer-events: none; }
-  .search-input { width: 100%; background: #161616; border: 1px solid #2a2a2a; border-radius: 8px; padding: 9px 12px 9px 36px; font-size: 14px; color: #f0ede8; outline: none; font-family: inherit; }
+  .search-wrap svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; color: #555; pointer-events: none; }
+  .search-input { width: 100%; background: #161616; border: 1px solid #2a2a2a; border-radius: 8px; padding: 10px 10px 10px 32px; font-size: 16px; color: #f0ede8; outline: none; font-family: inherit; -webkit-appearance: none; }
   .search-input::placeholder { color: #444; }
   .search-input:focus { border-color: #e8b84b55; }
-  .add-btn { display: flex; align-items: center; gap: 6px; background: #e8b84b; color: #0e0e0e; border: none; border-radius: 7px; padding: 9px 16px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: opacity 0.15s; }
-  .add-btn:hover { opacity: 0.85; }
+  .add-btn { display: flex; align-items: center; gap: 5px; background: #e8b84b; color: #0e0e0e; border: none; border-radius: 7px; padding: 10px 14px; font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap; touch-action: manipulation; flex-shrink: 0; }
+  .add-btn:active { opacity: 0.75; }
 
-  /* Filter row */
-  .filter-row { display: flex; gap: 8px; margin-bottom: 1rem; flex-wrap: wrap; }
-  .filter-btn { font-size: 12px; padding: 5px 12px; border-radius: 6px; border: 1px solid #2a2a2a; background: none; color: #888; cursor: pointer; transition: all 0.15s; }
-  .filter-btn.active { background: #1e1e1e; color: #f0ede8; border-color: #444; }
+  /* FILTER ROW */
+  .filter-row { display: flex; gap: 6px; margin-bottom: 0.75rem; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; scrollbar-width: none; }
+  .filter-row::-webkit-scrollbar { display: none; }
+  .filter-btn { font-size: 12px; padding: 6px 12px; border-radius: 20px; border: 1px solid #2a2a2a; background: none; color: #888; cursor: pointer; white-space: nowrap; flex-shrink: 0; touch-action: manipulation; }
+  .filter-btn.active { background: #2a2a2a; color: #f0ede8; border-color: #444; }
 
-  /* List view */
-  .gear-list { display: flex; flex-direction: column; border: 1px solid #1e1e1e; border-radius: 12px; overflow: hidden; }
+  .result-count { font-size: 11px; color: #444; margin-bottom: 6px; }
 
-  .gear-list-header {
-    display: grid;
-    grid-template-columns: 28px 1fr 110px 90px 140px 110px 80px;
-    gap: 12px;
-    padding: 8px 14px;
-    background: #111;
-    border-bottom: 1px solid #1e1e1e;
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: #444;
-    align-items: center;
-  }
+  /* GEAR LIST — mobile cards */
+  .gear-list { display: flex; flex-direction: column; gap: 1px; background: #1a1a1a; border: 1px solid #1e1e1e; border-radius: 12px; overflow: hidden; }
 
-  .gear-row {
-    display: grid;
-    grid-template-columns: 28px 1fr 110px 90px 140px 110px 80px;
-    gap: 12px;
-    padding: 11px 14px;
-    border-bottom: 1px solid #161616;
-    align-items: center;
+  .gear-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px;
+    background: #0e0e0e;
     transition: background 0.1s;
   }
-  .gear-row:last-child { border-bottom: none; }
-  .gear-row:hover { background: #141414; }
+  .gear-item:active { background: #141414; }
 
-  .gear-row-status { display: flex; align-items: center; justify-content: center; }
-  .status-dot-lg { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-  .status-dot-lg.available { background: #3a7d5a; }
-  .status-dot-lg.out { background: #e8b84b; }
+  .gear-item-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .gear-item-dot.available { background: #3a7d5a; }
+  .gear-item-dot.out { background: #e8b84b; }
 
-  .gear-row-name { font-size: 14px; font-weight: 600; color: #f0ede8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .gear-row-cat { font-size: 11px; color: #555; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .gear-row-who { font-size: 12px; color: #aaa; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .gear-row-who.empty { color: #333; }
-  .gear-row-time { font-size: 11px; color: #444; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .gear-row-added { font-size: 11px; color: #333; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .gear-item-main { flex: 1; min-width: 0; }
+  .gear-item-name { font-size: 14px; font-weight: 600; color: #f0ede8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .gear-item-meta { display: flex; align-items: center; gap: 6px; margin-top: 2px; flex-wrap: wrap; }
+  .gear-item-cat { font-size: 11px; color: #555; }
+  .gear-item-sep { font-size: 11px; color: #333; }
+  .gear-item-who { font-size: 11px; font-weight: 600; }
+  .gear-item-who.out { color: #e8b84b; }
+  .gear-item-who.available { color: #3a7d5a; }
+  .gear-item-time { font-size: 10px; color: #3a3a3a; margin-top: 1px; }
 
-  .gear-row-actions { display: flex; gap: 5px; justify-content: flex-end; }
-  .row-btn { font-size: 11px; font-weight: 600; padding: 4px 9px; border-radius: 5px; border: 1px solid #2a2a2a; background: none; cursor: pointer; transition: all 0.12s; white-space: nowrap; }
-  .row-btn.take { color: #e8b84b; border-color: #e8b84b33; }
-  .row-btn.take:hover { background: #2b2010; }
-  .row-btn.return { color: #5acc8e; border-color: #3a7d5a33; }
-  .row-btn.return:hover { background: #0d2b1e; }
-  .row-btn.del { color: #a05555; border-color: #3a151533; }
-  .row-btn.del:hover { background: #1e0f0f; }
+  .gear-item-actions { display: flex; gap: 5px; flex-shrink: 0; }
+  .row-btn { font-size: 12px; font-weight: 600; padding: 7px 11px; border-radius: 7px; border: 1px solid #2a2a2a; background: none; cursor: pointer; transition: all 0.12s; white-space: nowrap; touch-action: manipulation; min-height: 36px; }
+  .row-btn.take { color: #e8b84b; border-color: #e8b84b44; }
+  .row-btn.take:active { background: #2b2010; }
+  .row-btn.return { color: #5acc8e; border-color: #3a7d5a44; }
+  .row-btn.return:active { background: #0d2b1e; }
+  .row-btn.del { color: #664444; border-color: #2a1515; font-size: 13px; padding: 7px 10px; }
+  .row-btn.del:active { background: #1e0f0f; color: #a05555; }
 
-  .empty-state { text-align: center; padding: 3rem; color: #444; }
+  /* Desktop table view */
+  @media (min-width: 700px) {
+    header { padding: 1rem 1.5rem; }
+    .user-name { max-width: 160px; }
+    .tabs { top: 61px; }
+    .tab-btn { flex: none; padding: 12px 24px; }
+    .main { padding: 1.5rem; }
+    .stats-row { gap: 12px; margin-bottom: 1.5rem; }
+    .stat-card { padding: 1rem; }
+    .stat-label { font-size: 11px; }
+    .filter-row { flex-wrap: wrap; overflow-x: visible; padding-bottom: 0; }
+
+    .gear-list { gap: 0; }
+    .gear-list-header {
+      display: grid;
+      grid-template-columns: 20px 1fr 120px 80px 180px 90px;
+      gap: 12px; padding: 8px 14px;
+      background: #111; border-bottom: 1px solid #1e1e1e;
+      font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: #444; align-items: center;
+    }
+    .gear-item {
+      display: grid;
+      grid-template-columns: 20px 1fr 120px 80px 180px 90px;
+      gap: 12px; padding: 10px 14px; align-items: center;
+      border-bottom: 1px solid #141414;
+    }
+    .gear-item:last-child { border-bottom: none; }
+    .gear-item-dot { margin: 0 auto; }
+    .gear-item-main { display: contents; }
+    .gear-item-name { font-size: 14px; }
+    .gear-item-meta { display: contents; }
+    .gear-item-cat { font-size: 11px; color: #555; }
+    .gear-item-sep { display: none; }
+    .gear-item-who { font-size: 12px; }
+    .gear-item-time { font-size: 11px; color: #3a3a3a; margin-top: 0; }
+    .gear-item-actions { justify-content: flex-end; }
+  }
+
+  .empty-state { text-align: center; padding: 3rem 1rem; color: #444; }
   .empty-state p { font-size: 14px; margin-top: 8px; }
 
-  /* Crew tab */
-  .crew-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; margin-bottom: 1.5rem; }
-  .crew-card { background: #161616; border: 1px solid #1e1e1e; border-radius: 12px; padding: 1.25rem 1rem; text-align: center; cursor: pointer; transition: all 0.15s; }
-  .crew-card:hover { border-color: #2a2a2a; }
+  /* CREW TAB */
+  .crew-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; margin-bottom: 1.5rem; }
+  .crew-card { background: #161616; border: 1px solid #1e1e1e; border-radius: 12px; padding: 1.1rem 0.75rem; text-align: center; cursor: pointer; transition: all 0.15s; touch-action: manipulation; }
+  .crew-card:active { opacity: 0.75; }
   .crew-card.selected { border-color: #e8b84b; background: #1a1800; }
-  .crew-avatar { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; margin: 0 auto 10px; }
-  .crew-name-label { font-size: 14px; font-weight: 600; color: #f0ede8; }
-  .crew-count { font-size: 12px; color: #555; margin-top: 3px; }
+  .crew-avatar { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700; margin: 0 auto 8px; }
+  .crew-name-label { font-size: 13px; font-weight: 600; color: #f0ede8; }
+  .crew-count { font-size: 11px; color: #555; margin-top: 2px; }
   .crew-count.has-gear { color: #e8b84b; }
 
-  .crew-detail { display: none; border-top: 1px solid #1e1e1e; padding-top: 1.25rem; margin-top: 0.5rem; }
+  .crew-detail { display: none; border-top: 1px solid #1e1e1e; padding-top: 1.25rem; margin-top: 0.25rem; }
   .crew-detail.visible { display: block; }
-  .crew-detail-header { display: flex; align-items: center; gap: 12px; margin-bottom: 1.25rem; }
-  .crew-detail-avatar { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700; }
-  .crew-detail-name { font-size: 18px; font-weight: 700; color: #f0ede8; }
-  .crew-detail-sub { font-size: 13px; color: #555; }
-
+  .crew-detail-header { display: flex; align-items: center; gap: 12px; margin-bottom: 1rem; }
+  .crew-detail-avatar { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; flex-shrink: 0; }
+  .crew-detail-name { font-size: 17px; font-weight: 700; color: #f0ede8; }
+  .crew-detail-sub { font-size: 12px; color: #555; }
   .crew-gear-list { display: flex; flex-direction: column; gap: 8px; }
-  .crew-gear-item { background: #161616; border: 1px solid #1e1e1e; border-left: 3px solid #e8b84b; border-radius: 10px; padding: 12px 14px; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
-  .crew-gear-item-name { font-size: 14px; font-weight: 600; color: #f0ede8; }
+  .crew-gear-item { background: #161616; border: 1px solid #1e1e1e; border-left: 3px solid #e8b84b; border-radius: 10px; padding: 10px 12px; display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+  .crew-gear-item-name { font-size: 13px; font-weight: 600; color: #f0ede8; }
   .crew-gear-item-cat { font-size: 11px; color: #555; margin-top: 2px; }
-  .crew-gear-item-time { font-size: 11px; color: #444; text-align: right; white-space: nowrap; }
+  .crew-gear-item-time { font-size: 11px; color: #444; text-align: right; white-space: nowrap; flex-shrink: 0; }
   .no-gear { text-align: center; padding: 2rem; color: #444; font-size: 14px; }
 
-  /* Modal */
-  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); display: flex; align-items: center; justify-content: center; z-index: 100; padding: 1rem; }
-  .modal { background: #161616; border: 1px solid #2a2a2a; border-radius: 14px; padding: 1.5rem; width: 100%; max-width: 400px; }
-  .modal h3 { font-size: 16px; font-weight: 600; margin-bottom: 1.25rem; color: #f0ede8; }
+  /* MODAL */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: flex; align-items: flex-end; justify-content: center; z-index: 100; padding: 0; }
+  .modal { background: #161616; border: 1px solid #2a2a2a; border-radius: 18px 18px 0 0; padding: 1.5rem; width: 100%; max-width: 480px; padding-bottom: max(1.5rem, env(safe-area-inset-bottom)); }
+  .modal h3 { font-size: 16px; font-weight: 700; margin-bottom: 1.25rem; color: #f0ede8; }
   .form-group { margin-bottom: 1rem; }
   .form-group label { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #666; margin-bottom: 6px; }
-  .form-group input, .form-group select { width: 100%; background: #0e0e0e; border: 1px solid #2a2a2a; border-radius: 7px; padding: 10px 12px; font-size: 14px; color: #f0ede8; outline: none; font-family: inherit; }
-  .form-group input:focus, .form-group select:focus { border-color: #e8b84b55; }
+  .form-group input, .form-group select { width: 100%; background: #0e0e0e; border: 1px solid #2a2a2a; border-radius: 9px; padding: 13px 12px; font-size: 16px; color: #f0ede8; outline: none; font-family: inherit; -webkit-appearance: none; }
+  .form-group input:focus, .form-group select:focus { border-color: #e8b84b88; }
   .form-group select option { background: #161616; }
   .modal-actions { display: flex; gap: 8px; margin-top: 1.25rem; }
-  .modal-cancel { flex: 1; background: none; border: 1px solid #2a2a2a; color: #888; border-radius: 7px; padding: 10px; cursor: pointer; font-size: 14px; }
-  .modal-cancel:hover { color: #f0ede8; }
-  .modal-confirm { flex: 2; background: #e8b84b; border: none; color: #0e0e0e; border-radius: 7px; padding: 10px; cursor: pointer; font-size: 14px; font-weight: 700; }
-  .modal-confirm:hover { opacity: 0.88; }
-  .loading { display: flex; align-items: center; justify-content: center; min-height: 200px; color: #555; font-size: 14px; }
+  .modal-cancel { flex: 1; background: #1e1e1e; border: none; color: #888; border-radius: 9px; padding: 13px; cursor: pointer; font-size: 15px; font-family: inherit; touch-action: manipulation; }
+  .modal-confirm { flex: 2; background: #e8b84b; border: none; color: #0e0e0e; border-radius: 9px; padding: 13px; cursor: pointer; font-size: 15px; font-weight: 700; font-family: inherit; touch-action: manipulation; }
+  .modal-confirm:active { opacity: 0.85; }
 
-  .result-count { font-size: 12px; color: #444; margin-bottom: 8px; }
+  @media (min-width: 700px) {
+    .modal-overlay { align-items: center; padding: 1rem; }
+    .modal { border-radius: 14px; padding-bottom: 1.5rem; }
+  }
+
+  .loading { display: flex; align-items: center; justify-content: center; min-height: 160px; color: #555; font-size: 14px; }
 </style>
 </head>
 <body>
 
 <div id="auth-screen">
-  <div>
+  <div style="text-align:center">
     <div class="logo">Camera Crew</div>
     <div class="app-title">Gear <span>Manifest</span></div>
   </div>
@@ -177,7 +207,7 @@
     <div class="user-info">
       <img class="user-avatar" id="user-avatar" src="" alt="">
       <span class="user-name" id="user-name"></span>
-      <button class="sign-out-btn" id="sign-out-btn">sign out</button>
+      <button class="sign-out-btn" id="sign-out-btn">Out</button>
     </div>
   </header>
 
@@ -191,33 +221,37 @@
     <!-- GEAR TAB -->
     <div id="tab-gear" class="tab-panel active">
       <div class="stats-row">
-        <div class="stat-card" style="background:#1a1f2e;border-color:#2a3a5c"><div class="stat-num" style="color:#7aacf0" id="stat-total">0</div><div class="stat-label" style="color:#4a6a9a">Total Items</div></div>
-        <div class="stat-card" style="background:#0d2b1e;border-color:#1a4a32"><div class="stat-num" style="color:#5acc8e" id="stat-available">0</div><div class="stat-label" style="color:#2a6a4a">Available</div></div>
-        <div class="stat-card" style="background:#2b1f0a;border-color:#4a3510"><div class="stat-num" style="color:#e8b84b" id="stat-out">0</div><div class="stat-label" style="color:#7a5a20">Checked Out</div></div>
+        <div class="stat-card" id="stat-card-all" style="background:#1a1f2e;border:1px solid #2a3a5c">
+          <div class="stat-num" style="color:#7aacf0" id="stat-total">0</div>
+          <div class="stat-label" style="color:#4a6a9a">Total</div>
+        </div>
+        <div class="stat-card" id="stat-card-available" style="background:#0d2b1e;border:1px solid #1a4a32">
+          <div class="stat-num" style="color:#5acc8e" id="stat-available">0</div>
+          <div class="stat-label" style="color:#2a6a4a">Available</div>
+        </div>
+        <div class="stat-card" id="stat-card-out" style="background:#2b1f0a;border:1px solid #4a3510">
+          <div class="stat-num" style="color:#e8b84b" id="stat-out">0</div>
+          <div class="stat-label" style="color:#7a5a20">Out</div>
+        </div>
       </div>
 
       <div class="toolbar">
         <div class="search-wrap">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input class="search-input" id="search-input" type="text" placeholder="Search equipment...">
+          <input class="search-input" id="search-input" type="search" placeholder="Search equipment...">
         </div>
-        <button class="add-btn" id="open-add-btn">+ Add Gear</button>
+        <button class="add-btn" id="open-add-btn">+ Add</button>
       </div>
 
       <div class="filter-row" id="filter-row"></div>
-
       <div class="result-count" id="result-count"></div>
 
-      <div id="gear-container">
-        <div class="loading">Loading gear...</div>
-      </div>
+      <div id="gear-container"><div class="loading">Loading gear...</div></div>
     </div>
 
     <!-- CREW TAB -->
     <div id="tab-crew" class="tab-panel">
-      <div class="section-header" style="margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between">
-        <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.15em;color:#555">Crew Members</div>
-      </div>
+      <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.15em;color:#555;margin-bottom:1rem">Crew Members</div>
       <div class="crew-grid" id="crew-grid"></div>
       <div class="crew-detail" id="crew-detail">
         <div class="crew-detail-header">
@@ -289,7 +323,6 @@
 <script src="https://cdn.jsdelivr.net/npm/firebase@10.12.2/firebase-app-compat.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/firebase@10.12.2/firebase-auth-compat.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/firebase@10.12.2/firebase-database-compat.min.js"></script>
-
 <script>
 firebase.initializeApp({
   apiKey: "AIzaSyAPnYK0aXhdRY_d8farvKqw_i2lOO_5lK8",
@@ -332,6 +365,7 @@ let searchQuery = '';
 let allGear = {};
 let pendingTakeId = null;
 let selectedCrew = null;
+const isDesktop = () => window.innerWidth >= 700;
 
 // Build filter row
 const filterRow = document.getElementById('filter-row');
@@ -347,6 +381,23 @@ FILTERS.forEach(f => {
   });
   filterRow.appendChild(btn);
 });
+
+// Stat card clicks
+document.getElementById('stat-card-all').addEventListener('click', () => applyFilter('all'));
+document.getElementById('stat-card-available').addEventListener('click', () => applyFilter('available'));
+document.getElementById('stat-card-out').addEventListener('click', () => applyFilter('checked-out'));
+
+function applyFilter(val) {
+  currentFilter = val;
+  document.querySelectorAll('.filter-btn').forEach(b => {
+    b.classList.toggle('active',
+      (b.textContent === 'All' && val === 'all') ||
+      (b.textContent === 'Available' && val === 'available') ||
+      (b.textContent === 'Checked Out' && val === 'checked-out')
+    );
+  });
+  renderGear();
+}
 
 // Search
 document.getElementById('search-input').addEventListener('input', function() {
@@ -386,10 +437,12 @@ function switchTab(tab, btn) {
 // Modals
 document.getElementById('open-add-btn').addEventListener('click', () => {
   document.getElementById('add-modal').style.display = 'flex';
-  document.getElementById('gear-name-input').focus();
+  setTimeout(() => document.getElementById('gear-name-input').focus(), 100);
 });
 document.getElementById('add-cancel-btn').addEventListener('click', closeModals);
 document.getElementById('take-cancel-btn').addEventListener('click', closeModals);
+document.getElementById('add-modal').addEventListener('click', e => { if (e.target === e.currentTarget) closeModals(); });
+document.getElementById('take-modal').addEventListener('click', e => { if (e.target === e.currentTarget) closeModals(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModals(); });
 
 document.getElementById('add-confirm-btn').addEventListener('click', () => {
@@ -423,14 +476,13 @@ function listenGear() {
   });
 }
 
-function formatTime(ts) {
-  if (!ts) return '—';
-  return new Date(ts).toLocaleString('en-SG', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true });
-}
-
 function formatShort(ts) {
   if (!ts) return '—';
   return new Date(ts).toLocaleString('en-SG', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit', hour12: true });
+}
+function formatFull(ts) {
+  if (!ts) return '—';
+  return new Date(ts).toLocaleString('en-SG', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true });
 }
 
 function esc(s) {
@@ -441,7 +493,6 @@ function renderGear() {
   const container = document.getElementById('gear-container');
   const items = Object.entries(allGear);
 
-  // Filter by tab filter
   let filtered = items;
   if (currentFilter === 'available') filtered = items.filter(([,v]) => !v.checkedOutBy);
   else if (currentFilter === 'checked-out') filtered = items.filter(([,v]) => v.checkedOutBy);
@@ -449,7 +500,6 @@ function renderGear() {
     filtered = items.filter(([,v]) => v.category === currentFilter);
   }
 
-  // Filter by search
   if (searchQuery) {
     filtered = filtered.filter(([,v]) =>
       v.name.toLowerCase().includes(searchQuery) ||
@@ -458,60 +508,66 @@ function renderGear() {
     );
   }
 
-  // Stats (always from full list)
   const total = items.length;
   const available = items.filter(([,v]) => !v.checkedOutBy).length;
   document.getElementById('stat-total').textContent = total;
   document.getElementById('stat-available').textContent = available;
   document.getElementById('stat-out').textContent = total - available;
 
-  // Result count
   const rc = document.getElementById('result-count');
-  rc.textContent = searchQuery || currentFilter !== 'all' ? filtered.length + ' item' + (filtered.length !== 1 ? 's' : '') + ' shown' : '';
+  rc.textContent = (searchQuery || currentFilter !== 'all') ? filtered.length + ' item' + (filtered.length !== 1 ? 's' : '') + ' shown' : '';
 
   if (filtered.length === 0) {
-    container.innerHTML = '<div class="empty-state"><div style="font-size:2rem">📷</div><p>' + (total === 0 ? 'No gear yet. Add your first item!' : 'Nothing matches.') + '</p></div>';
+    container.innerHTML = '<div class="empty-state"><div style="font-size:2rem">📷</div><p>' + (total === 0 ? 'No gear yet. Tap + Add to start!' : 'Nothing matches.') + '</p></div>';
     return;
   }
 
-  // Sort: checked out first, then alphabetically
   filtered.sort(([,a],[,b]) => {
     if (!!a.checkedOutBy !== !!b.checkedOutBy) return a.checkedOutBy ? -1 : 1;
     return a.name.localeCompare(b.name);
   });
 
-  container.innerHTML = `
-    <div class="gear-list">
-      <div class="gear-list-header">
-        <div></div>
-        <div>Name</div>
-        <div>Category</div>
-        <div>Status</div>
-        <div>With / Returned</div>
-        <div>Added</div>
-        <div></div>
-      </div>
-      ${filtered.map(([id, item]) => {
-        const out = !!item.checkedOutBy;
-        return `<div class="gear-row" data-id="${id}">
-          <div class="gear-row-status">
-            <div class="status-dot-lg ${out ? 'out' : 'available'}"></div>
-          </div>
-          <div class="gear-row-name" title="${esc(item.name)}">${esc(item.name)}</div>
-          <div class="gear-row-cat">${esc(item.category)}</div>
-          <div class="gear-row-cat" style="color:${out ? '#e8b84b' : '#3a7d5a'}">${out ? 'Out' : 'Available'}</div>
-          <div class="gear-row-time">${out ? esc(item.checkedOutBy) + ' · ' + formatShort(item.checkedOutAt) : (item.returnedAt ? 'Ret ' + formatShort(item.returnedAt) : '—')}</div>
-          <div class="gear-row-added">${formatShort(item.addedAt)}</div>
-          <div class="gear-row-actions">
-            ${out
-              ? `<button class="row-btn return" data-id="${id}">Return</button>`
-              : `<button class="row-btn take" data-id="${id}" data-name="${esc(item.name)}">Take</button>`
-            }
-            <button class="row-btn del" data-id="${id}">✕</button>
-          </div>
-        </div>`;
-      }).join('')}
+  const desktop = isDesktop();
+
+  let html = '<div class="gear-list">';
+  if (desktop) {
+    html += `<div class="gear-list-header">
+      <div></div><div>Name</div><div>Category</div><div>Status</div><div>With / Time</div><div></div>
     </div>`;
+  }
+
+  filtered.forEach(([id, item]) => {
+    const out = !!item.checkedOutBy;
+    const whoTime = out
+      ? esc(item.checkedOutBy) + ' · ' + formatShort(item.checkedOutAt)
+      : (item.returnedAt ? 'Ret ' + formatShort(item.returnedAt) : '—');
+
+    html += `<div class="gear-item" data-id="${id}">
+      <div class="gear-item-dot ${out ? 'out' : 'available'}"></div>
+      <div class="gear-item-main">
+        <div class="gear-item-name">${esc(item.name)}</div>
+        <div class="gear-item-meta">
+          <span class="gear-item-cat">${esc(item.category)}</span>
+          <span class="gear-item-sep">·</span>
+          <span class="gear-item-who ${out ? 'out' : 'available'}">${out ? esc(item.checkedOutBy) : 'Available'}</span>
+        </div>
+        <div class="gear-item-time">${out ? 'Taken: ' + formatShort(item.checkedOutAt) : (item.returnedAt ? 'Returned: ' + formatShort(item.returnedAt) : '')}</div>
+      </div>
+      ${desktop ? `<div class="gear-item-cat">${esc(item.category)}</div>
+      <div style="font-size:12px;color:${out ? '#e8b84b' : '#3a7d5a'}">${out ? 'Out' : 'Available'}</div>
+      <div style="font-size:11px;color:#555">${whoTime}</div>` : ''}
+      <div class="gear-item-actions">
+        ${out
+          ? `<button class="row-btn return" data-id="${id}">Return</button>`
+          : `<button class="row-btn take" data-id="${id}" data-name="${esc(item.name)}">Take</button>`
+        }
+        <button class="row-btn del" data-id="${id}">✕</button>
+      </div>
+    </div>`;
+  });
+
+  html += '</div>';
+  container.innerHTML = html;
 
   container.querySelectorAll('.row-btn.take').forEach(btn => {
     btn.addEventListener('click', e => {
@@ -531,15 +587,16 @@ function renderGear() {
   container.querySelectorAll('.row-btn.del').forEach(btn => {
     btn.addEventListener('click', e => {
       e.stopPropagation();
-      if (confirm('Remove this item from the manifest?')) db.ref('gear/' + btn.dataset.id).remove();
+      if (confirm('Remove this item?')) db.ref('gear/' + btn.dataset.id).remove();
     });
   });
 }
 
+window.addEventListener('resize', renderGear);
+
 function renderCrew() {
   const items = Object.entries(allGear);
   const crewGrid = document.getElementById('crew-grid');
-
   crewGrid.innerHTML = CREW.map(c => {
     const held = items.filter(([,v]) => v.checkedOutBy === c.name);
     return `<div class="crew-card ${selectedCrew === c.name ? 'selected' : ''}" data-crew="${c.name}">
@@ -557,32 +614,27 @@ function renderCrew() {
       if (!selectedCrew) document.getElementById('crew-detail').classList.remove('visible');
     });
   });
-
   if (selectedCrew) showCrewDetail(selectedCrew);
 }
 
 function showCrewDetail(name) {
   const c = CREW.find(x => x.name === name);
   const items = Object.entries(allGear).filter(([,v]) => v.checkedOutBy === name);
-  const avEl = document.getElementById('crew-detail-avatar');
-  avEl.style.background = c.color;
-  avEl.style.color = c.text;
-  avEl.textContent = c.initials;
+  const av = document.getElementById('crew-detail-avatar');
+  av.style.background = c.color; av.style.color = c.text; av.textContent = c.initials;
   document.getElementById('crew-detail-name').textContent = name;
-  document.getElementById('crew-detail-sub').textContent = items.length + ' item' + (items.length !== 1 ? 's' : '') + ' currently checked out';
+  document.getElementById('crew-detail-sub').textContent = items.length + ' item' + (items.length !== 1 ? 's' : '') + ' checked out';
   const list = document.getElementById('crew-gear-list');
-  if (items.length === 0) {
-    list.innerHTML = '<div class="no-gear">No gear currently with ' + name + '</div>';
-  } else {
-    list.innerHTML = items.map(([,item]) => `
+  list.innerHTML = items.length === 0
+    ? '<div class="no-gear">Nothing with ' + name + ' right now</div>'
+    : items.map(([,item]) => `
       <div class="crew-gear-item">
         <div>
           <div class="crew-gear-item-name">${esc(item.name)}</div>
           <div class="crew-gear-item-cat">${esc(item.category)}</div>
         </div>
-        <div class="crew-gear-item-time">${formatTime(item.checkedOutAt)}</div>
+        <div class="crew-gear-item-time">${formatFull(item.checkedOutAt)}</div>
       </div>`).join('');
-  }
   document.getElementById('crew-detail').classList.add('visible');
 }
 </script>

@@ -9,38 +9,17 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'DM Sans', sans-serif; background: #0e0e0e; color: #f0ede8; min-height: 100vh; }
 
-  #auth-screen {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    background: #0e0e0e;
-  }
+  #auth-screen { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; }
   .logo { font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; color: #888; }
   .app-title { font-size: 2.8rem; font-weight: 700; letter-spacing: -0.04em; color: #f0ede8; }
   .app-title span { color: #e8b84b; }
-  .sign-in-btn {
-    display: flex; align-items: center; gap: 12px;
-    background: #f0ede8; color: #0e0e0e;
-    border: none; border-radius: 8px;
-    padding: 14px 28px; font-size: 15px; font-weight: 600;
-    cursor: pointer; transition: opacity 0.2s;
-  }
+  .sign-in-btn { display: flex; align-items: center; gap: 12px; background: #f0ede8; color: #0e0e0e; border: none; border-radius: 8px; padding: 14px 28px; font-size: 15px; font-weight: 600; cursor: pointer; transition: opacity 0.2s; }
   .sign-in-btn:hover { opacity: 0.88; }
   .sign-in-btn svg { width: 20px; height: 20px; }
 
   #app { display: none; min-height: 100vh; }
 
-  header {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1rem 1.5rem;
-    border-bottom: 1px solid #1e1e1e;
-    position: sticky; top: 0; z-index: 10;
-    background: #0e0e0e;
-  }
-  .header-left { display: flex; align-items: center; gap: 1rem; }
+  header { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.5rem; border-bottom: 1px solid #1e1e1e; position: sticky; top: 0; z-index: 10; background: #0e0e0e; }
   .header-title { font-size: 1rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: #e8b84b; }
   .user-info { display: flex; align-items: center; gap: 10px; }
   .user-avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 2px solid #2a2a2a; }
@@ -48,74 +27,51 @@
   .sign-out-btn { font-size: 12px; color: #555; background: none; border: 1px solid #2a2a2a; border-radius: 6px; padding: 4px 10px; cursor: pointer; }
   .sign-out-btn:hover { color: #f0ede8; border-color: #444; }
 
-  .main { padding: 1.5rem; max-width: 900px; margin: 0 auto; }
+  .tabs { display: flex; border-bottom: 1px solid #1e1e1e; padding: 0 1.5rem; background: #0e0e0e; position: sticky; top: 61px; z-index: 9; }
+  .tab-btn { font-size: 13px; font-weight: 600; padding: 12px 20px; border: none; background: none; color: #555; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all 0.15s; }
+  .tab-btn.active { color: #e8b84b; border-bottom-color: #e8b84b; }
+  .tab-btn:hover:not(.active) { color: #888; }
 
-  .stats-row {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 1.5rem;
-  }
-  .stat-card {
-    background: #161616; border: 1px solid #1e1e1e; border-radius: 10px;
-    padding: 1rem; text-align: center;
-  }
+  .main { padding: 1.5rem; max-width: 900px; margin: 0 auto; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 1.5rem; }
+  .stat-card { background: #161616; border: 1px solid #1e1e1e; border-radius: 10px; padding: 1rem; text-align: center; }
   .stat-num { font-size: 2rem; font-weight: 700; color: #e8b84b; }
   .stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #555; margin-top: 2px; }
 
-  .section-header {
-    display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;
-  }
+  .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
   .section-title { font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; color: #555; }
 
-  .add-btn {
-    display: flex; align-items: center; gap: 6px;
-    background: #e8b84b; color: #0e0e0e; border: none;
-    border-radius: 7px; padding: 8px 14px; font-size: 13px; font-weight: 600;
-    cursor: pointer; transition: opacity 0.15s;
-  }
+  .add-btn { display: flex; align-items: center; gap: 6px; background: #e8b84b; color: #0e0e0e; border: none; border-radius: 7px; padding: 8px 14px; font-size: 13px; font-weight: 600; cursor: pointer; transition: opacity 0.15s; }
   .add-btn:hover { opacity: 0.85; }
 
   .filter-row { display: flex; gap: 8px; margin-bottom: 1rem; flex-wrap: wrap; }
-  .filter-btn {
-    font-size: 12px; padding: 5px 12px; border-radius: 6px;
-    border: 1px solid #2a2a2a; background: none; color: #888; cursor: pointer;
-    transition: all 0.15s;
-  }
+  .filter-btn { font-size: 12px; padding: 5px 12px; border-radius: 6px; border: 1px solid #2a2a2a; background: none; color: #888; cursor: pointer; transition: all 0.15s; }
   .filter-btn.active { background: #1e1e1e; color: #f0ede8; border-color: #444; }
 
   .gear-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
-
-  .gear-card {
-    background: #161616; border: 1px solid #1e1e1e; border-radius: 12px;
-    padding: 1rem; transition: border-color 0.15s;
-  }
+  .gear-card { background: #161616; border: 1px solid #1e1e1e; border-radius: 12px; padding: 1rem; transition: border-color 0.15s; }
   .gear-card:hover { border-color: #2a2a2a; }
   .gear-card.checked-out { border-left: 3px solid #e8b84b; }
   .gear-card.available { border-left: 3px solid #3a7d5a; }
 
-  .gear-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+  .gear-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; gap: 8px; }
   .gear-name { font-size: 15px; font-weight: 600; color: #f0ede8; line-height: 1.3; }
-  .gear-cat {
-    font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em;
-    padding: 3px 8px; border-radius: 4px; background: #1e1e1e; color: #666;
-    white-space: nowrap;
-  }
-  .gear-status { margin-top: 8px; }
-  .status-badge {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 6px;
-  }
+  .gear-cat { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; padding: 3px 8px; border-radius: 4px; background: #1e1e1e; color: #666; white-space: nowrap; }
+
+  .status-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 6px; }
   .status-badge.available { background: #0d2b1e; color: #5acc8e; }
   .status-badge.checked-out { background: #2b2010; color: #e8b84b; }
   .status-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
 
-  .with-who { font-size: 12px; color: #666; margin-top: 6px; }
+  .with-who { font-size: 12px; color: #666; margin-top: 5px; }
   .with-who strong { color: #aaa; }
+  .timestamp { font-size: 11px; color: #3a3a3a; margin-top: 3px; }
 
   .gear-actions { display: flex; gap: 6px; margin-top: 12px; }
-  .action-btn {
-    flex: 1; font-size: 12px; font-weight: 600; padding: 7px;
-    border-radius: 6px; border: 1px solid #2a2a2a; background: none;
-    color: #888; cursor: pointer; transition: all 0.15s;
-  }
+  .action-btn { flex: 1; font-size: 12px; font-weight: 600; padding: 7px; border-radius: 6px; border: 1px solid #2a2a2a; background: none; color: #888; cursor: pointer; transition: all 0.15s; }
   .action-btn:hover { background: #1e1e1e; color: #f0ede8; }
   .action-btn.take { border-color: #e8b84b44; color: #e8b84b; }
   .action-btn.take:hover { background: #2b2010; }
@@ -127,23 +83,35 @@
   .empty-state { text-align: center; padding: 3rem; color: #444; grid-column: 1/-1; }
   .empty-state p { font-size: 14px; margin-top: 8px; }
 
-  .modal-overlay {
-    position: fixed; inset: 0; background: rgba(0,0,0,0.75);
-    display: flex; align-items: center; justify-content: center;
-    z-index: 100; padding: 1rem;
-  }
-  .modal {
-    background: #161616; border: 1px solid #2a2a2a; border-radius: 14px;
-    padding: 1.5rem; width: 100%; max-width: 400px;
-  }
+  .crew-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; margin-bottom: 1.5rem; }
+  .crew-card { background: #161616; border: 1px solid #1e1e1e; border-radius: 12px; padding: 1.25rem 1rem; text-align: center; cursor: pointer; transition: all 0.15s; }
+  .crew-card:hover { border-color: #2a2a2a; }
+  .crew-card.selected { border-color: #e8b84b; background: #1a1800; }
+  .crew-avatar { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; margin: 0 auto 10px; }
+  .crew-name-label { font-size: 14px; font-weight: 600; color: #f0ede8; }
+  .crew-count { font-size: 12px; color: #555; margin-top: 3px; }
+  .crew-count.has-gear { color: #e8b84b; }
+
+  .crew-detail { display: none; border-top: 1px solid #1e1e1e; padding-top: 1.25rem; margin-top: 0.5rem; }
+  .crew-detail.visible { display: block; }
+  .crew-detail-header { display: flex; align-items: center; gap: 12px; margin-bottom: 1.25rem; }
+  .crew-detail-avatar { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700; }
+  .crew-detail-name { font-size: 18px; font-weight: 700; color: #f0ede8; }
+  .crew-detail-sub { font-size: 13px; color: #555; }
+
+  .crew-gear-list { display: flex; flex-direction: column; gap: 8px; }
+  .crew-gear-item { background: #161616; border: 1px solid #1e1e1e; border-left: 3px solid #e8b84b; border-radius: 10px; padding: 12px 14px; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  .crew-gear-item-name { font-size: 14px; font-weight: 600; color: #f0ede8; }
+  .crew-gear-item-cat { font-size: 11px; color: #555; margin-top: 2px; }
+  .crew-gear-item-time { font-size: 11px; color: #444; text-align: right; white-space: nowrap; }
+  .no-gear { text-align: center; padding: 2rem; color: #444; font-size: 14px; }
+
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); display: flex; align-items: center; justify-content: center; z-index: 100; padding: 1rem; }
+  .modal { background: #161616; border: 1px solid #2a2a2a; border-radius: 14px; padding: 1.5rem; width: 100%; max-width: 400px; }
   .modal h3 { font-size: 16px; font-weight: 600; margin-bottom: 1.25rem; color: #f0ede8; }
   .form-group { margin-bottom: 1rem; }
   .form-group label { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #666; margin-bottom: 6px; }
-  .form-group input, .form-group select {
-    width: 100%; background: #0e0e0e; border: 1px solid #2a2a2a;
-    border-radius: 7px; padding: 10px 12px; font-size: 14px; color: #f0ede8;
-    outline: none;
-  }
+  .form-group input, .form-group select { width: 100%; background: #0e0e0e; border: 1px solid #2a2a2a; border-radius: 7px; padding: 10px 12px; font-size: 14px; color: #f0ede8; outline: none; }
   .form-group input:focus, .form-group select:focus { border-color: #e8b84b55; }
   .form-group select option { background: #161616; }
   .modal-actions { display: flex; gap: 8px; margin-top: 1.25rem; }
@@ -151,7 +119,6 @@
   .modal-cancel:hover { color: #f0ede8; }
   .modal-confirm { flex: 2; background: #e8b84b; border: none; color: #0e0e0e; border-radius: 7px; padding: 10px; cursor: pointer; font-size: 14px; font-weight: 700; }
   .modal-confirm:hover { opacity: 0.88; }
-
   .loading { display: flex; align-items: center; justify-content: center; min-height: 200px; color: #555; font-size: 14px; }
 </style>
 </head>
@@ -162,7 +129,7 @@
     <div class="logo">Camera Crew</div>
     <div class="app-title">Gear <span>Manifest</span></div>
   </div>
-  <button class="sign-in-btn" onclick="signIn()">
+  <button class="sign-in-btn" id="sign-in-btn">
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
       <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
@@ -175,55 +142,52 @@
 
 <div id="app">
   <header>
-    <div class="header-left">
-      <div class="header-title">⬡ Gear Manifest</div>
-    </div>
+    <div class="header-title">⬡ Gear Manifest</div>
     <div class="user-info">
       <img class="user-avatar" id="user-avatar" src="" alt="">
       <span class="user-name" id="user-name"></span>
-      <button class="sign-out-btn" onclick="signOut()">sign out</button>
+      <button class="sign-out-btn" id="sign-out-btn">sign out</button>
     </div>
   </header>
 
+  <div class="tabs">
+    <button class="tab-btn active" id="tab-btn-gear">Gear</button>
+    <button class="tab-btn" id="tab-btn-crew">Crew</button>
+  </div>
+
   <div class="main">
-    <div class="stats-row">
-      <div class="stat-card">
-        <div class="stat-num" id="stat-total">0</div>
-        <div class="stat-label">Total Items</div>
+    <div id="tab-gear" class="tab-panel active">
+      <div class="stats-row">
+        <div class="stat-card"><div class="stat-num" id="stat-total">0</div><div class="stat-label">Total Items</div></div>
+        <div class="stat-card"><div class="stat-num" id="stat-available" style="color:#5acc8e">0</div><div class="stat-label">Available</div></div>
+        <div class="stat-card"><div class="stat-num" id="stat-out" style="color:#e8b84b">0</div><div class="stat-label">Checked Out</div></div>
       </div>
-      <div class="stat-card">
-        <div class="stat-num" id="stat-available" style="color:#5acc8e">0</div>
-        <div class="stat-label">Available</div>
+      <div class="section-header">
+        <div class="section-title">Equipment</div>
+        <button class="add-btn" id="open-add-btn">+ Add Gear</button>
       </div>
-      <div class="stat-card">
-        <div class="stat-num" id="stat-out" style="color:#e8b84b">0</div>
-        <div class="stat-label">Checked Out</div>
-      </div>
+      <div class="filter-row" id="filter-row"></div>
+      <div id="gear-grid" class="gear-grid"><div class="loading">Loading gear...</div></div>
     </div>
 
-    <div class="section-header">
-      <div class="section-title">Equipment</div>
-      <button class="add-btn" onclick="openAddModal()">+ Add Gear</button>
-    </div>
-
-    <div class="filter-row">
-      <button class="filter-btn active" onclick="setFilter('all', this)">All</button>
-      <button class="filter-btn" onclick="setFilter('available', this)">Available</button>
-      <button class="filter-btn" onclick="setFilter('checked-out', this)">Checked Out</button>
-      <button class="filter-btn" onclick="setFilter('Camera Bodies', this)">Bodies</button>
-      <button class="filter-btn" onclick="setFilter('Lenses', this)">Lenses</button>
-      <button class="filter-btn" onclick="setFilter('Lighting', this)">Lighting</button>
-      <button class="filter-btn" onclick="setFilter('Stands & Supports', this)">Stands</button>
-      <button class="filter-btn" onclick="setFilter('Other', this)">Other</button>
-    </div>
-
-    <div id="gear-grid" class="gear-grid">
-      <div class="loading">Loading gear...</div>
+    <div id="tab-crew" class="tab-panel">
+      <div class="section-header"><div class="section-title">Crew Members</div></div>
+      <div class="crew-grid" id="crew-grid"></div>
+      <div class="crew-detail" id="crew-detail">
+        <div class="crew-detail-header">
+          <div class="crew-detail-avatar" id="crew-detail-avatar"></div>
+          <div>
+            <div class="crew-detail-name" id="crew-detail-name"></div>
+            <div class="crew-detail-sub" id="crew-detail-sub"></div>
+          </div>
+        </div>
+        <div class="crew-gear-list" id="crew-gear-list"></div>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- Add Gear Modal -->
+<!-- Add Modal -->
 <div id="add-modal" class="modal-overlay" style="display:none">
   <div class="modal">
     <h3>Add Gear Item</h3>
@@ -237,38 +201,46 @@
         <option>Camera Bodies</option>
         <option>Lenses</option>
         <option>Lighting</option>
-        <option>Stands & Supports</option>
+        <option>Stands &amp; Supports</option>
         <option>Other</option>
       </select>
     </div>
     <div class="modal-actions">
-      <button class="modal-cancel" onclick="closeModals()">Cancel</button>
-      <button class="modal-confirm" onclick="addGear()">Add Item</button>
+      <button class="modal-cancel" id="add-cancel-btn">Cancel</button>
+      <button class="modal-confirm" id="add-confirm-btn">Add Item</button>
     </div>
   </div>
 </div>
 
-<!-- Take Gear Modal -->
+<!-- Take Modal -->
 <div id="take-modal" class="modal-overlay" style="display:none">
   <div class="modal">
     <h3>Check Out Gear</h3>
     <p style="font-size:14px;color:#888;margin-bottom:1.25rem" id="take-item-name"></p>
     <div class="form-group">
       <label>Who's taking it?</label>
-      <input type="text" id="take-name-input" placeholder="Your name">
+      <select id="take-name-input">
+        <option value="">— select crew member —</option>
+        <option>Azhar</option>
+        <option>Nithees</option>
+        <option>Marcus</option>
+        <option>Farz</option>
+        <option>Dawson</option>
+      </select>
     </div>
     <div class="modal-actions">
-      <button class="modal-cancel" onclick="closeModals()">Cancel</button>
-      <button class="modal-confirm" onclick="confirmTake()">Check Out</button>
+      <button class="modal-cancel" id="take-cancel-btn">Cancel</button>
+      <button class="modal-confirm" id="take-confirm-btn">Check Out</button>
     </div>
   </div>
 </div>
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup, signOut as fbSignOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getDatabase, ref, push, onValue, update, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 
+<script>
 const firebaseConfig = {
   apiKey: "AIzaSyAPnYK0aXhdRY_d8farvKqw_i2lOO_5lK8",
   authDomain: "gear-manifest-v2.firebaseapp.com",
@@ -279,26 +251,60 @@ const firebaseConfig = {
   appId: "1:366870494705:web:6167d14e290c019869d850"
 };
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getDatabase(app);
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.database();
+
+const CREW = [
+  { name: 'Azhar',   color: '#1a2b3c', text: '#4a9edd', initials: 'AZ' },
+  { name: 'Nithees', color: '#1a2b1a', text: '#5acc8e', initials: 'NI' },
+  { name: 'Marcus',  color: '#2b1a1a', text: '#e87b4b', initials: 'MA' },
+  { name: 'Farz',    color: '#2b2010', text: '#e8b84b', initials: 'FA' },
+  { name: 'Dawson',  color: '#1e1a2b', text: '#a78bda', initials: 'DA' },
+];
+
+const FILTERS = [
+  { label: 'All', val: 'all' },
+  { label: 'Available', val: 'available' },
+  { label: 'Checked Out', val: 'checked-out' },
+  { label: 'Bodies', val: 'Camera Bodies' },
+  { label: 'Lenses', val: 'Lenses' },
+  { label: 'Lighting', val: 'Lighting' },
+  { label: 'Stands', val: 'Stands & Supports' },
+  { label: 'Other', val: 'Other' },
+];
 
 let currentFilter = 'all';
 let allGear = {};
 let pendingTakeId = null;
+let selectedCrew = null;
 
-window.signIn = async () => {
-  const provider = new GoogleAuthProvider();
-  try { await signInWithPopup(auth, provider); } catch(e) { alert(e.message); }
-};
+// Build filter row
+const filterRow = document.getElementById('filter-row');
+FILTERS.forEach(f => {
+  const btn = document.createElement('button');
+  btn.className = 'filter-btn' + (f.val === 'all' ? ' active' : '');
+  btn.textContent = f.label;
+  btn.addEventListener('click', () => {
+    currentFilter = f.val;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderGear();
+  });
+  filterRow.appendChild(btn);
+});
 
-window.signOut = () => fbSignOut(auth);
+// Auth
+document.getElementById('sign-in-btn').addEventListener('click', () => {
+  auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).catch(e => alert(e.message));
+});
+document.getElementById('sign-out-btn').addEventListener('click', () => auth.signOut());
 
-onAuthStateChanged(auth, user => {
+auth.onAuthStateChanged(user => {
   if (user) {
     document.getElementById('auth-screen').style.display = 'none';
     document.getElementById('app').style.display = 'block';
-    document.getElementById('user-name').textContent = user.displayName?.split(' ')[0] || user.email;
+    document.getElementById('user-name').textContent = user.displayName ? user.displayName.split(' ')[0] : user.email;
     document.getElementById('user-avatar').src = user.photoURL || '';
     listenGear();
   } else {
@@ -307,12 +313,65 @@ onAuthStateChanged(auth, user => {
   }
 });
 
+// Tabs
+document.getElementById('tab-btn-gear').addEventListener('click', function() { switchTab('gear', this); });
+document.getElementById('tab-btn-crew').addEventListener('click', function() { switchTab('crew', this); });
+
+function switchTab(tab, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  btn.classList.add('active');
+}
+
+// Modals
+document.getElementById('open-add-btn').addEventListener('click', () => {
+  document.getElementById('add-modal').style.display = 'flex';
+  document.getElementById('gear-name-input').focus();
+});
+document.getElementById('add-cancel-btn').addEventListener('click', closeModals);
+document.getElementById('take-cancel-btn').addEventListener('click', closeModals);
+
+document.getElementById('add-confirm-btn').addEventListener('click', () => {
+  const name = document.getElementById('gear-name-input').value.trim();
+  const category = document.getElementById('gear-cat-input').value;
+  if (!name) return;
+  db.ref('gear').push({ name, category, checkedOutBy: null, addedAt: Date.now() });
+  document.getElementById('gear-name-input').value = '';
+  closeModals();
+});
+
+document.getElementById('take-confirm-btn').addEventListener('click', () => {
+  const who = document.getElementById('take-name-input').value;
+  if (!who || !pendingTakeId) return;
+  db.ref('gear/' + pendingTakeId).update({ checkedOutBy: who, checkedOutAt: Date.now(), returnedAt: null });
+  pendingTakeId = null;
+  closeModals();
+});
+
+function closeModals() {
+  document.getElementById('add-modal').style.display = 'none';
+  document.getElementById('take-modal').style.display = 'none';
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModals(); });
+
+// Data
 function listenGear() {
-  const gearRef = ref(db, 'gear');
-  onValue(gearRef, snap => {
+  db.ref('gear').on('value', snap => {
     allGear = snap.val() || {};
     renderGear();
+    renderCrew();
   });
+}
+
+function formatTime(ts) {
+  if (!ts) return '';
+  return new Date(ts).toLocaleString('en-SG', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true });
+}
+
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
 function renderGear() {
@@ -333,85 +392,111 @@ function renderGear() {
   document.getElementById('stat-out').textContent = total - available;
 
   if (filtered.length === 0) {
-    grid.innerHTML = `<div class="empty-state"><div style="font-size:2rem">📷</div><p>${total === 0 ? 'No gear yet. Add your first item!' : 'Nothing matches this filter.'}</p></div>`;
+    grid.innerHTML = '<div class="empty-state"><div style="font-size:2rem">📷</div><p>' + (total === 0 ? 'No gear yet. Add your first item!' : 'Nothing matches this filter.') + '</p></div>';
     return;
   }
 
-  grid.innerHTML = filtered.map(([id, item]) => `
-    <div class="gear-card ${item.checkedOutBy ? 'checked-out' : 'available'}">
+  grid.innerHTML = filtered.map(([id, item]) => {
+    const out = !!item.checkedOutBy;
+    return `<div class="gear-card ${out ? 'checked-out' : 'available'}">
       <div class="gear-card-top">
-        <div class="gear-name">${escHtml(item.name)}</div>
-        <div class="gear-cat">${escHtml(item.category)}</div>
+        <div class="gear-name">${esc(item.name)}</div>
+        <div class="gear-cat">${esc(item.category)}</div>
       </div>
-      <div class="gear-status">
-        ${item.checkedOutBy
+      <div style="margin-top:8px">
+        ${out
           ? `<span class="status-badge checked-out"><span class="status-dot"></span>Out</span>
-             <div class="with-who">with <strong>${escHtml(item.checkedOutBy)}</strong></div>`
-          : `<span class="status-badge available"><span class="status-dot"></span>Available</span>`}
+             <div class="with-who">with <strong>${esc(item.checkedOutBy)}</strong></div>
+             <div class="timestamp">Taken: ${formatTime(item.checkedOutAt)}</div>`
+          : `<span class="status-badge available"><span class="status-dot"></span>Available</span>
+             ${item.returnedAt ? '<div class="timestamp">Returned: ' + formatTime(item.returnedAt) + '</div>' : ''}`
+        }
+        ${item.addedAt ? '<div class="timestamp">Added: ' + formatTime(item.addedAt) + '</div>' : ''}
       </div>
       <div class="gear-actions">
-        ${item.checkedOutBy
-          ? `<button class="action-btn return" onclick="returnGear('${id}')">Return</button>`
-          : `<button class="action-btn take" onclick="openTakeModal('${id}', '${escHtml(item.name)}')">Take</button>`}
-        <button class="action-btn del" onclick="deleteGear('${id}')">Remove</button>
+        ${out
+          ? `<button class="action-btn return" data-id="${id}">Return</button>`
+          : `<button class="action-btn take" data-id="${id}" data-name="${esc(item.name)}">Take</button>`
+        }
+        <button class="action-btn del" data-id="${id}">Remove</button>
       </div>
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
+
+  // Attach events after render
+  grid.querySelectorAll('.action-btn.take').forEach(btn => {
+    btn.addEventListener('click', () => {
+      pendingTakeId = btn.dataset.id;
+      document.getElementById('take-item-name').textContent = btn.dataset.name;
+      document.getElementById('take-name-input').value = '';
+      document.getElementById('take-modal').style.display = 'flex';
+    });
+  });
+  grid.querySelectorAll('.action-btn.return').forEach(btn => {
+    btn.addEventListener('click', () => {
+      db.ref('gear/' + btn.dataset.id).update({ checkedOutBy: null, checkedOutAt: null, returnedAt: Date.now() });
+    });
+  });
+  grid.querySelectorAll('.action-btn.del').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (confirm('Remove this item from the manifest?')) db.ref('gear/' + btn.dataset.id).remove();
+    });
+  });
 }
 
-window.openAddModal = () => {
-  document.getElementById('add-modal').style.display = 'flex';
-  document.getElementById('gear-name-input').focus();
-};
+function renderCrew() {
+  const items = Object.entries(allGear);
+  const crewGrid = document.getElementById('crew-grid');
 
-window.openTakeModal = (id, name) => {
-  pendingTakeId = id;
-  document.getElementById('take-item-name').textContent = name;
-  document.getElementById('take-name-input').value = '';
-  document.getElementById('take-modal').style.display = 'flex';
-  document.getElementById('take-name-input').focus();
-};
+  crewGrid.innerHTML = CREW.map(c => {
+    const held = items.filter(([,v]) => v.checkedOutBy === c.name);
+    return `<div class="crew-card ${selectedCrew === c.name ? 'selected' : ''}" data-crew="${c.name}">
+      <div class="crew-avatar" style="background:${c.color};color:${c.text}">${c.initials}</div>
+      <div class="crew-name-label">${c.name}</div>
+      <div class="crew-count ${held.length > 0 ? 'has-gear' : ''}">${held.length} item${held.length !== 1 ? 's' : ''}</div>
+    </div>`;
+  }).join('');
 
-window.closeModals = () => {
-  document.getElementById('add-modal').style.display = 'none';
-  document.getElementById('take-modal').style.display = 'none';
-};
+  crewGrid.querySelectorAll('.crew-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const name = card.dataset.crew;
+      selectedCrew = selectedCrew === name ? null : name;
+      renderCrew();
+      if (!selectedCrew) document.getElementById('crew-detail').classList.remove('visible');
+    });
+  });
 
-window.addGear = async () => {
-  const name = document.getElementById('gear-name-input').value.trim();
-  const category = document.getElementById('gear-cat-input').value;
-  if (!name) return;
-  await push(ref(db, 'gear'), { name, category, checkedOutBy: null, addedAt: Date.now() });
-  document.getElementById('gear-name-input').value = '';
-  closeModals();
-};
-
-window.confirmTake = async () => {
-  const who = document.getElementById('take-name-input').value.trim();
-  if (!who || !pendingTakeId) return;
-  await update(ref(db, `gear/${pendingTakeId}`), { checkedOutBy: who, checkedOutAt: Date.now() });
-  pendingTakeId = null;
-  closeModals();
-};
-
-window.returnGear = id => update(ref(db, `gear/${id}`), { checkedOutBy: null, checkedOutAt: null });
-
-window.deleteGear = id => {
-  if (confirm('Remove this item from the manifest?')) remove(ref(db, `gear/${id}`));
-};
-
-window.setFilter = (val, btn) => {
-  currentFilter = val;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  renderGear();
-};
-
-function escHtml(s) {
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  if (selectedCrew) showCrewDetail(selectedCrew);
 }
 
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModals(); });
+function showCrewDetail(name) {
+  const c = CREW.find(x => x.name === name);
+  const items = Object.entries(allGear).filter(([,v]) => v.checkedOutBy === name);
+
+  const avEl = document.getElementById('crew-detail-avatar');
+  avEl.style.background = c.color;
+  avEl.style.color = c.text;
+  avEl.textContent = c.initials;
+
+  document.getElementById('crew-detail-name').textContent = name;
+  document.getElementById('crew-detail-sub').textContent = items.length + ' item' + (items.length !== 1 ? 's' : '') + ' currently checked out';
+
+  const list = document.getElementById('crew-gear-list');
+  if (items.length === 0) {
+    list.innerHTML = '<div class="no-gear">No gear currently with ' + name + '</div>';
+  } else {
+    list.innerHTML = items.map(([,item]) => `
+      <div class="crew-gear-item">
+        <div>
+          <div class="crew-gear-item-name">${esc(item.name)}</div>
+          <div class="crew-gear-item-cat">${esc(item.category)}</div>
+        </div>
+        <div class="crew-gear-item-time">${formatTime(item.checkedOutAt)}</div>
+      </div>`).join('');
+  }
+
+  document.getElementById('crew-detail').classList.add('visible');
+}
 </script>
 </body>
 </html>
